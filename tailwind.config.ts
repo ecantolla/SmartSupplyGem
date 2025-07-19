@@ -1,10 +1,13 @@
 import type { Config } from "tailwindcss"
 
-const config: Config = {
+const config = {
   content: [
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./*.{js,ts,jsx,tsx,mdx}",
+  ],
+  safelist: [
+    'bg-slate-200', // Ensure sticky header background is never purged
   ],
   theme: {
     extend: {

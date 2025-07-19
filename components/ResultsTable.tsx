@@ -114,16 +114,16 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
           {/* Sticky Header */}
           <div className="sticky top-0 z-20 bg-slate-200">
             <div className="flex">
-              {columnConfigs.map(({ header, width, align }, index) => {
+              {columnConfigs.map(({ header, width }, index) => {
                 const isSticky = index < 2
                 const stickyStyles = isSticky ? { left: index === 0 ? 0 : columnConfigs[0].width } : {}
-                const stickyClasses = isSticky ? "sticky z-10 bg-slate-200" : ""
+                const stickyClasses = isSticky ? "sticky z-10" : ""
                 const borderClass = index === 1 ? "border-r-2 border-slate-400" : "border-r border-slate-300/50"
 
                 return (
                   <div
                     key={header}
-                    className={`px-4 py-2 text-xs font-bold text-slate-700 flex items-end justify-center ${borderClass} last:border-r-0 ${stickyClasses}`}
+                    className={`px-4 py-2 text-xs font-bold text-slate-700 flex items-end justify-center bg-slate-200 ${borderClass} last:border-r-0 ${stickyClasses}`}
                     style={{ flex: `0 0 ${width}px`, minHeight: "3.5rem", ...stickyStyles }}
                     title={header}
                   >
