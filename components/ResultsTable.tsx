@@ -112,12 +112,12 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
       <div ref={parentRef} className="overflow-auto" style={{ maxHeight: "70vh" }}>
         <div style={{ width: `${totalWidth}px` }}>
           {/* Sticky Header */}
-          <div className="sticky top-0 z-20 bg-[#d0d4d8]">
+          <div className="sticky top-0 z-20 bg-sticky-header">
             <div className="flex">
               {columnConfigs.map(({ header, width, align }, index) => {
                 const isSticky = index < 2
                 const stickyStyles = isSticky ? { left: index === 0 ? 0 : columnConfigs[0].width } : {}
-                const stickyClasses = isSticky ? "sticky z-10 bg-[#d0d4d8]" : ""
+                const stickyClasses = isSticky ? "sticky z-10 bg-sticky-header" : ""
                 const borderClass = index === 1 ? "border-r-2 border-slate-400" : "border-r border-slate-300/50"
 
                 return (
