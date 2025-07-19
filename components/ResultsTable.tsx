@@ -171,20 +171,21 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
                     const config = columnConfigs[cellIndex]
                     if (!config) return null
 
-                    const isSticky = cellIndex < 2
-                    const stickyStyles = isSticky ? { left: cellIndex === 0 ? 0 : columnConfigs[0].width } : {}
+                    const getCellBgClass = (): string => {
+                      if (product.error) {
+                        return "bg-red-50 group-hover:bg-red-100"
+                      }
 
-                    const isUnidadesColumn = config.header === "Unidades a Abastecer";
-                    
-                    let bgClasses = ""
-                    if (product.error) {
-                      bgClasses = "bg-red-50 group-hover:bg-red-100"
-                    } else if (isUnidadesColumn && product.status === "Fijo") {
-                       bgClasses = "bg-purple-50 group-hover:bg-purple-100"
-                    } else {
-                      bgClasses = "bg-white group-hover:bg-slate-50"
+                      const isUnidadesFijo = config.header === "Unidades a Abastecer" && product.status === "Fijo"
+                      if (isUnidadesFijo) {
+                        return "bg-purple-50 group-hover:bg-purple-100"
+                      }
+
+                      return "bg-white group-hover:bg-slate-50"
                     }
 
+                    const isSticky = cellIndex < 2
+                    const stickyStyles = isSticky ? { left: cellIndex === 0 ? 0 : columnConfigs[0].width } : {}
                     const isNombre = config.header === "Nombre"
                     const isUnidades = config.header === "Unidades a Abastecer"
                     const isNumericBold = ["Venta Prom. Semanal", "Stock Ideal"].includes(config.header)
@@ -195,9 +196,15 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
                         "text-right": "justify-end",
                         "text-center": "justify-center",
                       }[config.align] || "justify-start"
+                      
+                    const bodyBorderClass =
+                      cellIndex === columnConfigs.length - 1
+                        ? "" // No right border on the last cell
+                        : cellIndex === 1
+                        ? "border-r-2 border-slate-400" // Thicker border after "Nombre"
+                        : "border-r border-slate-300/50"; // Standard border for other cells
 
-                    const borderClass = cellIndex === 1 ? "border-r-2 border-slate-300" : ""
-                    const stickyClasses = isSticky ? `sticky z-10 ${borderClass}` : ""
+                    const stickyClasses = isSticky ? "sticky z-10" : ""
 
                     const classNames = [
                       "px-4 py-1 flex items-center text-slate-700",
@@ -205,9 +212,12 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
                       isNombre ? "whitespace-normal" : "whitespace-nowrap",
                       isUnidades ? "font-bold" : "",
                       isNumericBold ? "font-medium" : "",
-                      bgClasses,
+                      getCellBgClass(),
                       stickyClasses,
-                    ].join(" ")
+                      bodyBorderClass,
+                    ]
+                      .filter(Boolean)
+                      .join(" ")
 
                     return (
                       <div
