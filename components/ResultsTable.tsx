@@ -112,12 +112,12 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
       <div ref={parentRef} className="overflow-auto" style={{ maxHeight: "70vh" }}>
         <div style={{ width: `${totalWidth}px` }}>
           {/* Sticky Header */}
-          <div className="sticky top-0 z-20 bg-sticky-header">
+          <div className="sticky top-0 z-20 bg-slate-200">
             <div className="flex">
               {columnConfigs.map(({ header, width, align }, index) => {
                 const isSticky = index < 2
                 const stickyStyles = isSticky ? { left: index === 0 ? 0 : columnConfigs[0].width } : {}
-                const stickyClasses = isSticky ? "sticky z-10 bg-sticky-header" : ""
+                const stickyClasses = isSticky ? "sticky z-10 bg-slate-200" : ""
                 const borderClass = index === 1 ? "border-r-2 border-slate-400" : "border-r border-slate-300/50"
 
                 return (
@@ -174,11 +174,13 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
                     const isSticky = cellIndex < 2
                     const stickyStyles = isSticky ? { left: cellIndex === 0 ? 0 : columnConfigs[0].width } : {}
 
+                    const isUnidadesColumn = config.header === "Unidades a Abastecer";
+                    
                     let bgClasses = ""
                     if (product.error) {
                       bgClasses = "bg-red-50 group-hover:bg-red-100"
-                    } else if (product.status === "Fijo") {
-                      bgClasses = "bg-purple-50 group-hover:bg-purple-100"
+                    } else if (isUnidadesColumn && product.status === "Fijo") {
+                       bgClasses = "bg-purple-50 group-hover:bg-purple-100"
                     } else {
                       bgClasses = "bg-white group-hover:bg-slate-50"
                     }
