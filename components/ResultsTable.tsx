@@ -109,7 +109,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ results, weekHeaders }) => 
   // --- Render ---
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-      <div ref={parentRef} className="overflow-auto" style={{ maxHeight: "70vh", scrollbarGutter: 'stable' }}>
+      <div ref={parentRef} className="overflow-x-auto overflow-y-scroll" style={{ maxHeight: "70vh" }}>
         <div style={{ width: `${totalWidth}px` }}>
           {/* Sticky Header */}
           <div className="sticky top-0 z-20 bg-slate-200">

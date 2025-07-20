@@ -6,15 +6,7 @@ const config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./*.{js,ts,jsx,tsx,mdx}",
   ],
-  safelist: [
-    'bg-slate-200',             // Sticky header
-    'bg-purple-50',              // Fijo cell background
-    'group-hover:bg-purple-100', // Fijo cell hover
-    'bg-red-50',                 // Error row background
-    'group-hover:bg-red-100',    // Error row hover
-    'bg-white',                  // Default cell background
-    'group-hover:bg-slate-50',   // Default cell hover
-  ],
+  safelist: [],
   theme: {
     extend: {
       colors: {
